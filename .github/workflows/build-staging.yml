@@ -39,7 +39,7 @@ jobs:
           storage: contoso-website
           context: .
           push: true
-          tags: latest
+          tags: ${{secrets.ACR_NAME}}/contoso-website:latest
                 
       # Runs a single command using the runners shell
       - name: Build and push the latest build to staging
