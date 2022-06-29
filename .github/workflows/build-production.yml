@@ -53,3 +53,45 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+                
+  deploy:
+    runs-on: ubuntu-20.04
+    needs: build_push_image # Will wait for the execution of the previous job  
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install Helm
+        uses: Azure/setup-helm@v3
+        with:
+          version: v3.3.1
+                  
+      - name: Set up kubelogin for non-interactive login
+        run: |
+          curl -LO https://github.com/Azure/kubelogin/releases/download/v0.0.9/kubelogin-linux-amd64.zip
+          sudo unzip -j kubelogin-linux-amd64.zip -d /usr/local/bin
+          rm -f kubelogin-linux-amd64.zip
+          kubelogin --version
+      
+      - name: Get AKS Credentials
+        uses: Azure/aks-set-context@v3
+        with:
+          resource-group: mslearn-gh-pipelines-1045
+          cluster-name: contoso-video
+          subscription: 6be09ae0-3f8d-4739-8812-6cef10ab0a76
+          admin: false
+          use-kubelogin: true
+                          
+      - name: Run Helm Deploy
+        run: |
+          helm upgrade \
+            --install \
+            --create-namespace \
+            --atomic \
+            --wait \
+            --namespace production \
+            contoso-website \
+            ./kubernetes/contoso-website \
+            --set image.repository=${{ secrets.ACR_NAME }} \
+            --set dns.name=${{ secrets.DNS_NAME }}
+            --set image.tag=${GITHUB_REF##*/}         
