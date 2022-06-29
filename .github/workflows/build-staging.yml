@@ -40,6 +40,13 @@ jobs:
         with:
           version: v3.3.1
                   
+      - name: Set up kubelogin for non-interactive login
+        run: |
+          curl -LO https://github.com/Azure/kubelogin/releases/download/v0.0.9/kubelogin-linux-amd64.zip
+          sudo unzip -j kubelogin-linux-amd64.zip -d /usr/local/bin
+          rm -f kubelogin-linux-amd64.zip
+          kubelogin --version
+      
       - name: Get AKS Credentials
         uses: Azure/aks-set-context@v3
         with:
@@ -48,14 +55,7 @@ jobs:
           subscription: 6be09ae0-3f8d-4739-8812-6cef10ab0a76
           admin: false
           use-kubelogin: true
-          
-      - name: Set up kubelogin for non-interactive login
-        run: |
-          curl -LO https://github.com/Azure/kubelogin/releases/download/v0.0.9/kubelogin-linux-amd64.zip
-          sudo unzip -j kubelogin-linux-amd64.zip -d /usr/local/bin
-          rm -f kubelogin-linux-amd64.zip
-          kubelogin --version
-          
+                
       - name: Run Helm Deploy
         run: |
           helm upgrade \
