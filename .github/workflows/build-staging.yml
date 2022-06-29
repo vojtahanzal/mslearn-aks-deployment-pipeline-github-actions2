@@ -49,6 +49,13 @@ jobs:
           admin: false
           use-kubelogin: true
           
+      - name: Set up kubelogin for non-interactive login
+        run: |
+          curl -LO https://github.com/Azure/kubelogin/releases/download/v0.0.9/kubelogin-linux-amd64.zip
+          sudo unzip -j kubelogin-linux-amd64.zip -d /usr/local/bin
+          rm -f kubelogin-linux-amd64.zip
+          kubelogin --version
+          
       - name: Run Helm Deploy
         run: |
           helm upgrade \
