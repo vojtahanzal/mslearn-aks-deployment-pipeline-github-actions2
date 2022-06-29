@@ -46,7 +46,6 @@ jobs:
           resource-group: mslearn-gh-pipelines-1045
           cluster-name: contoso-video
           subscription: 6be09ae0-3f8d-4739-8812-6cef10ab0a76
-          AZURE_DEVOPS_EXT_PAT: $(AZURE_DEVOPS_EXT_PAT)
           admin: true
           
       - name: Run Helm Deploy
