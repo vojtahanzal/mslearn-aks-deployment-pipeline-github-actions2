@@ -28,7 +28,7 @@ jobs:
           tags: ${{secrets.ACR_NAME}}/contoso-website:latest
           push: true
   
-deploy:
+  deploy:
     runs-on: ubuntu-20.04
     needs: build_push_image # Will wait for the execution of the previous job  
 
@@ -51,12 +51,12 @@ deploy:
       - name: Run Helm Deploy
         run: |
           helm upgrade \
-            --install \
-            --create-namespace \
-            --atomic \
-            --wait \
-            --namespace staging \
-            contoso-website \
-            ./kubernetes/contoso-website \
-            --set image.repository=${{ secrets.ACR_NAME }} \
-            --set dns.name=${{ secrets.DNS_NAME }}
+              --install \
+              --create-namespace \
+              --atomic \
+              --wait \
+              --namespace staging \
+              contoso-website \
+              ./kubernetes/contoso-website \
+              --set image.repository=${{ secrets.ACR_NAME }} \
+              --set dns.name=${{ secrets.DNS_NAME }}
