@@ -48,12 +48,13 @@ jobs:
           kubelogin --version
        
       - name: Get AKS Credentials
-        uses: Azure/aks-set-context@v1
+        uses: Azure/aks-set-context@v2.1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
           resource-group: mslearn-gh-pipelines-1045
           cluster-name: contoso-video
-                
+          subscription: 6be09ae0-3f8d-4739-8812-6cef10ab0a76
+          admin: true
+          
       - name: Run Helm Deploy
         run: |
           helm upgrade \
