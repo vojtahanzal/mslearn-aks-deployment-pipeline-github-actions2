@@ -50,6 +50,7 @@ jobs:
       - name: Get AKS Credentials
         uses: Azure/aks-set-context@v3
         with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }} 
           resource-group: mslearn-gh-pipelines-1045
           cluster-name: contoso-video
           admin: false
