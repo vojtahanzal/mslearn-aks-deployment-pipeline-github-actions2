@@ -47,9 +47,9 @@ jobs:
           rm -f kubelogin-linux-amd64.zip
           kubelogin --version
       
-      - name: |
+      - name: Login do Azure
+        run: |
           az pipelines build list
-        env:
           AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
       
       - name: Get AKS Credentials
