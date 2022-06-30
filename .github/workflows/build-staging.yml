@@ -48,7 +48,7 @@ jobs:
           kubelogin --version
        
       - name: Get AKS Credentials
-        uses: Azure/aks-set-context@v3
+        uses: Azure/aks-set-context@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           resource-group: mslearn-gh-pipelines-1045
