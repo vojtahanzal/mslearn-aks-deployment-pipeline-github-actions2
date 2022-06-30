@@ -52,7 +52,7 @@ jobs:
         with:
           resource-group: mslearn-gh-pipelines-1045
           cluster-name: contoso-video
-          subscription: 6be09ae0-3f8d-4739-8812-6cef10ab0a76
+          subscription: /subscriptions/6be09ae0-3f8d-4739-8812-6cef10ab0a76/resourceGroups/MC_mslearn-gh-pipelines-1045_contoso-video_eastus
           admin: true
           
       - name: Run Helm Deploy
